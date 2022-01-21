@@ -6,4 +6,4 @@ We use [vscode](https://code.visualstudio.com/) with a few plugins:
 * [git grapg](https://marketplace.visualstudio.com/items?itemName=mhutchie.git-graph) and [git lens](https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens) for better experience with git
 
 ## Packages
-* [calculation_python](./calculation_python/README.md)
+* [calculation_python](./calculation_python/)
