@@ -1,5 +1,10 @@
-# we will remove it later
-import sys; sys.path.append("../")
+import os
+import pathlib
+
+cwd = os.path.dirname(os.path.abspath(__file__))
+package_path = os.path.normpath(os.path.join(cwd, "../.."))
+import sys; sys.path.append(package_path)
+
 
 from numba import njit
 import numpy as np
