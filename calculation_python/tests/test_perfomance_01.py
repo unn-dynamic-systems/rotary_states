@@ -53,7 +53,7 @@ def get_spawn_cmds_and_spawn_cwd():
 def error_callback(e):
     print(e)
 
-def main():
+def test_main():
     WORKERS_COUNT = cpu_count()
     spawn_cmds, spawn_cwd = get_spawn_cmds_and_spawn_cwd()
 
@@ -67,8 +67,9 @@ def main():
         p.starmap_async(worker, args_arr, error_callback=error_callback).wait()
         print("All done")
 
+
 if __name__ == '__main__':
-    main()
+    test_main()
 
 ##########################################################
 ##  A MUCH MORE ABSTRACT EXAMPLE OF PARALLEL USAGE API
