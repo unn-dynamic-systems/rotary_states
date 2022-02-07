@@ -34,6 +34,7 @@ def worker(spawn_cmd, spawn_cwd):
     except Exception as e:
         # catch any exceptions
         print(f"Exception here: {e}")
+        raise e
 
 def get_spawn_cmds_and_spawn_cwd():
     '''
@@ -64,7 +65,9 @@ def test_main():
 
     # RUN PARALLEL WITH {WORKERS_COUNT} WORKERS
     with Pool(WORKERS_COUNT) as p:
-        p.starmap_async(worker, args_arr, error_callback=error_callback).wait()
+        starmap = p.starmap_async(worker, args_arr, error_callback=error_callback)
+        starmap.wait() # blok until done
+        assert starmap.successful()
         print("All done")
 
 
@@ -80,10 +83,3 @@ if __name__ == '__main__':
 #     [task.wait() for task in tasks]
 #     p.close(); p.join()
 #     print("all done")
-
-# Note, what the map, async_map, starmap_async
-# and etc will kill all processes
-# if one of them failed, apply_async and etc
-# NO, because they are not connected to each other.
-# But in our case we actually fine with it, cause we
-# catch any error into worker function
