@@ -3,7 +3,7 @@ from scipy.integrate import odeint
 from rh_sides import R_SIDES
 
 
-h = 1e-3; t = np.arange(0, 15000, h)
+h = 1e-3; t = np.arange(0, 5000, h)
 N, L, G, K = 10, 0.4, 0.9, 1
 args = (N, L, G, K)
 

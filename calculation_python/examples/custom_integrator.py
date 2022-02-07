@@ -5,16 +5,14 @@ package_path = os.path.normpath(os.path.join(cwd, "../.."))
 import sys; sys.path.append(package_path)
 
 
-from numba import njit
 import numpy as np
-import math as mt
 
 # Every import of our library should looks like this
 from calculation_python import integrators
 from rh_sides import R_SIDES
 
 
-h = 1e-3; t_0 = 0; t_end = 15000
+h = 1e-3; t_0 = 0; t_end = 5000
 N, L, G, K = 10, 0.4, 0.9, 1
 args = (N, L, G, K)
 
