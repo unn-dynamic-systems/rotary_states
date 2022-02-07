@@ -29,12 +29,11 @@ def RS(q, t, N, L, G, K):
             + K * (mt.sin(q[2 * N - 4] - q[2 * N - 2]))
     return X
 
-h = 1e-3; t = np.arange(0, 15000, h)
+h = 1e-3; t_0 = 0; t_end = 15000
 N, L, G, K = 10, 0.4, 0.9, 1
 args = (N, L, G, K)
 
 np.random.seed(42); q0 = np.random.rand(2 * N)
 
-integrators.RK4.lastState(RS, q0, t, h, args)
+integrators.RK4.lastState(RS, q0, t_0, h, t_end, args)
 print("CUSTOM INTEGRATOR OK")
-
