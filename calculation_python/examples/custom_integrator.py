@@ -25,7 +25,7 @@ def RS(q, t, N, L, G, K):
             (mt.sin(q[n + 4] - q[n + 2]) + mt.sin(q[n] - q[n + 2]))
         n += 2
     X[2 * N - 2] = q[2 * N - 1]
-    X[2 * N - 1] = -L*q[2 * N - 1] - mt.sin(q[2 * N - 2]) + G  \
+    X[2 * N - 1] = -L * q[2 * N - 1] - mt.sin(q[2 * N - 2]) + G  \
             + K * (mt.sin(q[2 * N - 4] - q[2 * N - 2]))
     return X
 
