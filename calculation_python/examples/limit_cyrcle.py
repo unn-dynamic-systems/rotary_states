@@ -60,31 +60,45 @@ def get_monogrommy_matrix(SUPER_RS, q0_limit_cycle, T, SUPER_ARGS, h=1e-3):
     return M
 
 def main():
-    N, L, G, K = 6, 0.3, 0.97, 1.33
-    args_orig = (N, L, G, K)
-    args_linear = (N, L, K)
+    N, L, G, K, h_k = 6, 0.3, 0.97, 1.33, 1e-3
 
-
-    VF = create_vf(R_SIDES.coupled_pendulums_rs, integrators.RK4.last_state, args_orig)
     X0 = np.array([4.01739166e+00, 4.00489756e+00, 6.83138901e-01, 2.81285526e+00,
                    6.83138901e-01, 2.81285526e+00, 0, 4.00489756e+00,
                    0, 4.00489756e+00, 6.83138901e-01, 2.81285526e+00])
 
-    # get limit cycle initial condition
-    x_limit_cycle = optimizers.newton(VF, X0)
-    print("Limit cycle initial condition")
-    print(x_limit_cycle)
+    x_limit_cycle = X0
+    iteration = 0
 
-    T = x_limit_cycle[0]; x_limit_cycle[0] = 0
+    while True:
+        K += h_k
 
-    SUPER_RS = create_super_rs(rs_orig=R_SIDES.coupled_pendulums_rs,
-                               rs_linear=R_SIDES.coupled_pendulums_linear_rs,
-                               rs_size=2 * N)
+        args_orig = (N, L, G, K)
+        args_linear = (N, L, K)
 
-    M = get_monogrommy_matrix(SUPER_RS, x_limit_cycle, T, (args_linear, args_orig))
-    e, _ = get_eigen_vaues(M)
-    print("Eigen values of monogrommy matrix")
-    print(e)
+        print("args_orig: ", args_orig)
+        VF = create_vf(R_SIDES.coupled_pendulums_rs, integrators.RK4.last_state, args_orig)
+
+        # get limit cycle initial condition
+        x_limit_cycle = optimizers.newton(VF, x_limit_cycle, eps=1e-3)
+        print("Limit cycle initial condition")
+        print(x_limit_cycle)
+
+        T = x_limit_cycle[0]; x_limit_cycle[0] = 0
+
+        SUPER_RS = create_super_rs(rs_orig=R_SIDES.coupled_pendulums_rs,
+                                rs_linear=R_SIDES.coupled_pendulums_linear_rs,
+                                rs_size=2 * N)
+
+        M = get_monogrommy_matrix(SUPER_RS, x_limit_cycle, T, (args_linear, args_orig))
+        e, _ = get_eigen_vaues(M)
+        print("Eigen values of monogrommy matrix")
+        print(e)
+
+        x_limit_cycle[0] = T
+        
+        iteration += 1
+        if iteration == 10:
+            break
 
 
 if __name__ == "__main__":
