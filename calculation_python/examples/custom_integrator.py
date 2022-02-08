@@ -1,11 +1,9 @@
 import os
+import numpy as np
 
 cwd = os.path.dirname(os.path.abspath(__file__))
-package_path = os.path.normpath(os.path.join(cwd, "../.."))
+package_path = os.path.normpath(os.path.join(cwd, "..", ".."))
 import sys; sys.path.append(package_path)
-
-
-import numpy as np
 
 # Every import of our library should looks like this
 from calculation_python import integrators
@@ -18,5 +16,5 @@ args = (N, L, G, K)
 
 np.random.seed(42); q0 = np.random.rand(2 * N)
 
-integrators.RK4.lastState(R_SIDES.coupled_pendulums_rs, q0, t_0, h, t_end, args)
+integrators.RK4.last_state(R_SIDES.coupled_pendulums_rs, q0, t_0, h, t_end, args)
 print("CUSTOM INTEGRATOR OK")

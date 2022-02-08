@@ -1,16 +1,18 @@
 from numba import njit
 
 @njit
-def lastState(RS, q0, t0, h, t_end, args):
+def last_state(RS, q0, t0, h, t_end, args):
     '''
     Return last state at the t_end time moment.
     Take Right hand side, initial state, step by time,
     last time moment and args of system.
     '''
-    X, t = q0, t0
-    while t < t_end:
+    X, t = q0.copy(), t0
+    while t + h < t_end:
         X += stepRK4(RS, X, t, h, args)
         t += h
+
+    X += stepRK4(RS, X, t, t_end - t, args)
     return X
 
 @njit
