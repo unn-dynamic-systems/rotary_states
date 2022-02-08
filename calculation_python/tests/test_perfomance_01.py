@@ -1,8 +1,6 @@
 from multiprocessing import Pool, cpu_count
 import subprocess
 import os
-import pathlib
-import time
 
 
 def worker(spawn_cmd, spawn_cwd):
