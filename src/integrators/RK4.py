@@ -1,7 +1,7 @@
 from numba import njit
 
 @njit
-def last_state(RS, q0, t0, h, t_end, args):
+def last_state(RS, q0, t0, t_end, args = (), h = 1e-3):
     '''
     Return last state at the t_end time moment.
     Take Right hand side, initial state, step by time,
