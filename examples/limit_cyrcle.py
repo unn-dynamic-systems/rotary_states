@@ -10,26 +10,7 @@ import sys; sys.path.append(package_path)
 from rh_sides import R_SIDES
 
 # Every import of our library should looks like this
-from calculation import optimizers, integrators
-
-def create_vf(rs, integrate_method, args):
-    @njit
-    def VF(X):
-        # X = [T, der0, ph1, der1, ph2, der2, ph3, der3, ..., phN, derN]
-        # T = X[0]
-
-        X = X.copy()
-        period = 4 * mt.pi
-        h = 1e-3
-
-        T = X[0]; X[0] = 0
-        last_state = integrate_method(rs, X, 0, h, T, args)
-
-        period_arr = np.zeros(len(X))
-        period_arr[::2] = period
-
-        return last_state - X - period_arr
-    return VF
+from calculation import optimizers, integrators, limit_cycles
 
 def create_super_rs(rs_orig, rs_linear, rs_size):
     @njit
@@ -50,13 +31,13 @@ def create_super_rs(rs_orig, rs_linear, rs_size):
 
     return RS
 
-def get_monogrommy_matrix(SUPER_RS, q0_limit_cycle, T, SUPER_ARGS, h=1e-3):
+def get_monogrommy_matrix(SUPER_RS, q0_limit_cycle, T, SUPER_ARGS):
     N = len(q0_limit_cycle)
     M = np.empty((N, N))
     for i in range(N):
         q0_linear = np.zeros(N); q0_linear[i] = 1.0
         q0 = np.array([q0_linear, q0_limit_cycle]).flatten()
-        M[i] = integrators.RK4.last_state(SUPER_RS, q0, 0, h, T, SUPER_ARGS)[:N]
+        M[i] = integrators.RK4.last_state(SUPER_RS, q0, 0, T, SUPER_ARGS)[:N]
     return M
 
 def main():
@@ -75,11 +56,11 @@ def main():
         args_orig = (N, L, G, K)
         args_linear = (N, L, K)
 
-        print("args_orig: ", args_orig)
-        VF = create_vf(R_SIDES.coupled_pendulums_rs, integrators.RK4.last_state, args_orig)
+        VF = limit_cycles.create_vf(R_SIDES.coupled_pendulums_rs, args_orig)
 
         # get limit cycle initial condition
         x_limit_cycle = optimizers.newton(VF, x_limit_cycle, eps=1e-3)
+        
         print("Limit cycle initial condition")
         print(x_limit_cycle)
 
