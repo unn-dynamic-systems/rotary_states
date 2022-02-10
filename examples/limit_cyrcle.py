@@ -10,7 +10,7 @@ import sys; sys.path.append(package_path)
 from rh_sides import R_SIDES
 
 # Every import of our library should looks like this
-from calculation_python import optimizers, integrators
+from calculation import optimizers, integrators
 
 def create_vf(rs, integrate_method, args):
     @njit

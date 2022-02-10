@@ -5,7 +5,7 @@ import os; cwd = os.path.dirname(os.path.abspath(__file__))
 package_path = os.path.normpath(os.path.join(cwd, "..", ".."))
 import sys; sys.path.append(package_path)
 
-from calculation_python import optimizers
+from calculation import optimizers
 
 
 def compare_vectors(v1, v2, eps=1e-5):
