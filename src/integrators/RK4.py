@@ -1,5 +1,12 @@
 from numba import njit
 
+# def njit_first_arg(func):
+#     def wrap(F, *args, **kwargs):
+#         if 'targetoptions' not in F.__dict__:
+#             F = njit(F)
+#         return func(F, *args, **kwargs)
+#     return wrap
+
 @njit
 def last_state(RS, q0, t0, t_end, args = (), h = 1e-3):
     '''
