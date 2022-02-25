@@ -5,6 +5,7 @@ import math as mt
 from ..optimizers import newton
 from ..integrators import RK4
 
+TIME_MAX = 5000
 
 def create_vf(RS, args, phase_period = 4 * mt.pi, h=1e-3):
     '''TODO: Docs'''
@@ -25,12 +26,18 @@ def create_vf(RS, args, phase_period = 4 * mt.pi, h=1e-3):
         return last_state - X - phase_period_arr
     return VF
 
+@njit
+def verify_x(X):
+    '''Check the time is valid'''
+    return X[0] < TIME_MAX and X[0] > 0
+
 def find_limit_cycle(RS, args, IC0, T0, phase_period = 4 * mt.pi, h=1e-3, eps=1e-3):
     '''TODO: Docs'''
     assert IC0[0] == 0 # Main Convention
     IC0[0] = T0
     VF = create_vf(RS, args, phase_period, h)
-    IC = newton(VF, IC0, eps)
+    IC0 = newton(njit(lambda X: VF(X) ** 2), IC0, 1e-1, verify_x=verify_x)
+    IC = newton(VF, IC0, eps, verify_x=verify_x)
     T = IC[0]; IC[0] = 0
     return T, IC
 
