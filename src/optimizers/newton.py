@@ -20,15 +20,19 @@ def yacoby_matrix(VF, X, h=1e-3):
     return y_m
 
 @njit
-def newton(VF, X0, eps=1e-3, K_MAX=100):
+def newton(VF, X0, eps=1e-3, K_MAX=100, verify_x=njit(lambda _: True)):
     '''Explanation here https://www.wikiwand.com/en/Newton%27s_method'''
     X = X0
     Y_1 = inv(yacoby_matrix(VF, X))
     d = Y_1 @ VF(X)
     iteration = 0
     while norm(d) > eps and iteration < K_MAX:
+        if not verify_x(X):
+            raise ArithmeticError("We can't find the point")
         iteration += 1
         Y_1 = inv(yacoby_matrix(VF, X))
         d = Y_1 @ VF(X)
         X -= d
+    if iteration == K_MAX:
+        raise ArithmeticError("Too much iterations")
     return X
