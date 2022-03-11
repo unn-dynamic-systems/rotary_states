@@ -33,6 +33,7 @@ def verify_x(X):
 
 def find_limit_cycle(RS, args, IC0, T0, phase_period = 4 * mt.pi, h=1e-3, eps=1e-3):
     '''TODO: Docs'''
+    IC0 = IC0.copy()
     assert IC0[0] == 0 # Main Convention
     IC0[0] = T0
     VF = create_vf(RS, args, phase_period, h)
