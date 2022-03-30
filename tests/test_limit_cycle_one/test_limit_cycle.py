@@ -1,5 +1,6 @@
 import subprocess
 import os
+import pytest
 
 def exec(cmd, dir):
     '''
@@ -35,7 +36,11 @@ def test_limit_cycle_one():
     exec(f"poetry run python3 {file_to_run} > {stdout_file}", spawn_cwd)
 
     # check here
-    exec(f'diff {stdout_file} {refer_stdout_file}', spawn_cwd)
+    try:
+        exec(f'diff {stdout_file} {refer_stdout_file}', spawn_cwd)
+    except subprocess.CalledProcessError as e:
+        pytest.fail(f"{e}")
+
 
     exec(f'rm {stdout_file}', spawn_cwd)
     print("OK")
