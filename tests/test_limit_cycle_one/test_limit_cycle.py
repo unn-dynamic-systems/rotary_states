@@ -1,19 +1,19 @@
 import subprocess
 import os
 
-def exec(spawn_cmd, spawn_cwd):
+def exec(cmd, dir):
     '''
-    This function just spawn the process via spawn_cmd
-    in spawn_cwd directory, but it cat be everithing
+    This function just spawn the process via 'cmd'
+    in 'dir' directory, but it cat be everithing
     you want with any positional arguments
     '''
     
-    print(f"We spawn {spawn_cmd}")
-    p = subprocess.run(spawn_cmd,
+    print(f"We spawn {cmd}")
+    p = subprocess.run(cmd,
                     capture_output=True,
                     shell=True,
                     text=True,
-                    cwd=spawn_cwd,
+                    cwd=dir,
                     check=True, # raise in exitcode != 0
                     executable='bash')
 
@@ -21,17 +21,25 @@ def exec(spawn_cmd, spawn_cwd):
 
 
 def test_limit_cycle_one():
-    
-    file_to_run = "limit_cycle.py"
     cd = os.path.dirname(os.path.abspath(__file__))
-
     spawn_cwd = os.path.normpath(os.path.join(cd))
-    spawn_cmd = f"poetry run python3 {file_to_run}"
-    stdout = exec(spawn_cmd, spawn_cwd)
+    
+    stdout_file = f'{spawn_cwd}/stdout_file.txt'
+    refer_stdout_file = f'{spawn_cwd}/refer_stdout.txt'
 
-    with open(f'{spawn_cwd}/refer_stdout.txt') as f:
-        assert stdout.strip() == f.read().strip()
-        print("OK")
+    # if os.path.isfile(stdout_file):
+    exec(f'rm -f {stdout_file}', spawn_cwd)
+
+    file_to_run = "limit_cycle.py"
+
+    exec(f"poetry run python3 {file_to_run} > {stdout_file}", spawn_cwd)
+
+    # check here
+    exec(f'diff {stdout_file} {refer_stdout_file}', spawn_cwd)
+
+    exec(f'rm {stdout_file}', spawn_cwd)
+    print("OK")
+
 
 
 if __name__ == '__main__':
