@@ -36,11 +36,14 @@ def test_limit_cycle_one():
     exec(f"poetry run python3 {file_to_run} > {stdout_file}", spawn_cwd)
 
     # check here
+    error_message = False
     try:
         exec(f'diff {stdout_file} {refer_stdout_file}', spawn_cwd)
     except subprocess.CalledProcessError as e:
-        pytest.fail(f"{e}")
+        error_message = e.output 
 
+    if error_message:
+        pytest.fail(error_message)
 
     exec(f'rm {stdout_file}', spawn_cwd)
     print("OK")
