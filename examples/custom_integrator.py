@@ -2,11 +2,11 @@ import os
 import numpy as np
 
 cwd = os.path.dirname(os.path.abspath(__file__))
-package_path = os.path.normpath(os.path.join(cwd, "..", ".."))
+package_path = os.path.normpath(os.path.join(cwd, ".."))
 import sys; sys.path.append(package_path)
 
 # Every import of our library should looks like this
-from calculation import integrators
+from unn_ds import integrators
 from rh_sides import R_SIDES
 
 

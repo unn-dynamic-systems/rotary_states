@@ -2,13 +2,13 @@ import numpy as np
 from numpy.linalg import eig as get_eigen_vaues_from_M
 
 import os; cwd = os.path.dirname(os.path.abspath(__file__))
-package_path = os.path.normpath(os.path.join(cwd, "..", ".."))
+package_path = os.path.normpath(os.path.join(cwd, ".."))
 import sys; sys.path.append(package_path)
 
 from rh_sides import R_SIDES
 
 # Every import of our library should looks like this
-from calculation import limit_cycles
+from unn_ds import limit_cycles
 
 def main():
     N, L, G, K, h_k = 6, 0.3, 0.97, 1.33, 1e-3

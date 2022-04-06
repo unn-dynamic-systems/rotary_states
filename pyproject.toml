@@ -1,6 +1,6 @@
 [tool.poetry]
-name = "calculation"
-version = "0.1.0"
+name = "unn_ds"
+version = "0.1.1"
 description = ""
 authors = ["DimaAmega <dima.amega1@gmail.com>"]
 
