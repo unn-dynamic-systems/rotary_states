@@ -1,10 +1,8 @@
-from numba import njit
 import numpy as np
 import math as mt
 
 class R_SIDES:
     @staticmethod
-    @njit
     def coupled_pendulums_rs(q, _, N, L, G, K):
         X = np.empty(2 * N)
         X[0] = q[1]
@@ -21,7 +19,6 @@ class R_SIDES:
         return X
 
     @staticmethod
-    @njit
     def coupled_pendulums_linear_rs(q, _, N, L, K, DSomeRotMode_t):
         X = np.empty(2 * N)
         X[0] = q[1]
