@@ -17,7 +17,8 @@ def find_limit_cycle(RS, args, IC0, T0, phase_period = 2 * mt.pi, h=1e-3, eps=1e
     assert IC0[0] == 0 # Main Convention
     IC0[0] = T0
     VF = __create_vf(__do_jit(RS), args, phase_period, h)
-    IC0 = __newton(lambda X: VF(X) ** 2, IC0, 1e-1, verify_x=__verify_x)
+    # too slow :(
+    # IC0 = __newton(lambda X: VF(X) ** 2, IC0, 1e-1, verify_x=__verify_x)
     IC = __newton(VF, IC0, eps, verify_x=__verify_x)
     T = IC[0]; IC[0] = 0
     return T, IC
