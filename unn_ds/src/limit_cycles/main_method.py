@@ -3,7 +3,7 @@ import numpy as np
 from numba import njit
 import math as mt
 from ..optimizers import newton
-from ..integrators import RK4
+from ..integrators import jit_RK4
 
 TIME_MAX = 5000
 
@@ -18,7 +18,7 @@ def create_vf(RS, args, phase_period = 4 * mt.pi, h=1e-3):
         X = X.copy()
 
         T = X[0]; X[0] = 0
-        last_state = RK4.last_state(RS, X, 0, T, args, h)
+        last_state = jit_RK4.jit_last_state(RS, X, 0, T, args, h)
 
         phase_period_arr = np.zeros(len(X))
         phase_period_arr[::2] = phase_period
@@ -64,16 +64,17 @@ def create_super_rs(rs_orig, rs_linear, rs_size):
 
 def get_monogrommy_matrix(rs_orig, rs_linear,
                           q0_limit_cycle, T,
-                          args_linear, args_orig):
+                          args_linear, args_orig,
+                          h_integrate=1e-3):
+
     '''TODO: Docs'''
     RS_SIZE = len(q0_limit_cycle)
     SUPER_RS = create_super_rs(rs_orig, rs_linear, RS_SIZE)
     SUPER_ARGS = (args_linear, args_orig)
 
-
     M = np.empty((RS_SIZE, RS_SIZE))
     for i in range(RS_SIZE):
         q0_linear = np.zeros(RS_SIZE); q0_linear[i] = 1.0
         q0 = np.array([q0_linear, q0_limit_cycle]).flatten()
-        M[i] = RK4.last_state(SUPER_RS, q0, 0, T, SUPER_ARGS)[:RS_SIZE]
+        M[i] = jit_RK4.jit_last_state(SUPER_RS, q0, 0, T, SUPER_ARGS, h_integrate)[:RS_SIZE]
     return M
