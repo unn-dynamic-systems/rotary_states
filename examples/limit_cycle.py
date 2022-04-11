@@ -1,3 +1,4 @@
+import math as mt
 import numpy as np
 from numpy.linalg import eig as get_eigen_vaues_from_M
 
@@ -27,7 +28,8 @@ def main():
         args_orig = (N, L, G, K)
         args_linear = (N, L, K)
 
-        T, IC = limit_cycles.find_limit_cycle(R_SIDES.coupled_pendulums_rs, args_orig, IC, T)
+        T, IC = limit_cycles.find_limit_cycle(R_SIDES.coupled_pendulums_rs, args_orig, IC, T,
+                                              phase_period=4 * mt.pi)
 
         print("Limit cycle initial condition")
         print(IC)

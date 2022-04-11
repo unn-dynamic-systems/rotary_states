@@ -10,7 +10,7 @@ from .jit_main_method import create_vf as __create_vf
 from .jit_main_method import create_super_rs as __create_super_rs
 from .jit_main_method import verify_x as __verify_x 
 
-def find_limit_cycle(RS, args, IC0, T0, phase_period = 4 * mt.pi, h=1e-3, eps=1e-3):
+def find_limit_cycle(RS, args, IC0, T0, phase_period = 2 * mt.pi, h=1e-3, eps=1e-3):
     '''TODO: Docs'''
 
     IC0 = IC0.copy()
