@@ -6,7 +6,6 @@ from unn_ds import optimizers
 
 def main():
 
-    @njit
     def VF(X):
         return np.array([2 * X[0] ** 2 + X[1] ** 2 - 1, \
                         X[0] ** 3 + 6 * X[0] ** 2 * X[1] - 1])

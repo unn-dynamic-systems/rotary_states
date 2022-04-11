@@ -1,5 +1,4 @@
 import numpy as np
-from numba import njit
 
 from unn_ds import optimizers
 
@@ -8,10 +7,8 @@ def compare_vectors(v1, v2, eps=1e-5):
     assert norm < eps
 
 def test_newton1():
-
-    @njit
     def VF(X):
-        return np.array([2 * X[0]**2 + X[1]**2 - 1, X[0]**3 + 6 * X[0]**2 * X[1] - 1])
+        return np.array([2 * X[0] ** 2 + X[1] ** 2 - 1, X[0] ** 3 + 6 * X[0] ** 2 * X[1] - 1])
 
     X0 = np.array([0.9, 0.18])
     print(f"newton started from {X0}")
@@ -21,11 +18,28 @@ def test_newton1():
     compare_vectors(VF(X), np.array([0, 0]))
     print(f"we got {X}, well done")
 
-def test_newton2():
 
-    @njit
+def test_newton1_yacoby():
+
     def VF(X):
-        return np.array([2 * X[0]**2 + X[1]**2 - 1, X[0]**3 + 6 * X[0]**2 * X[1]])
+        return np.array([2 * X[0] ** 2 + X[1] ** 2 - 1, X[0] ** 3 + 6 * X[0] ** 2 * X[1] - 1])
+    
+    def yacoby_matrix(X):
+        return np.array([[4 * X[0], 2 * X[1]],
+                        [3 * X[0] ** 2 + 12 * X[0] * X[1], 6 * X[0] ** 2]])
+
+    X0 = np.array([0.9, 0.18])
+    print(f"newton started from {X0}")
+    X = optimizers.newton(VF, X0, yacoby_matrix=yacoby_matrix)
+    answer = np.array([0.68659442, 0.23911545])
+    compare_vectors(answer, X)
+    compare_vectors(VF(X), np.array([0, 0]))
+    print(f"we got {X}, well done")
+
+def test_newton3():
+
+    def VF(X):
+        return np.array([2 * X[0] ** 2 + X[1] ** 2 - 1, X[0] ** 3 + 6 * X[0] ** 2 * X[1]])
 
     X0 = np.array([0.9, 0.18])
     print(f"newton started from {X0}")
@@ -38,4 +52,5 @@ def test_newton2():
 
 if __name__ == "__main__":
     test_newton1()
-    test_newton2()
+    test_newton1_yacoby()
+    test_newton3()

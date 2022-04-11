@@ -1,38 +1,15 @@
-from numba import njit
-from numpy.linalg import inv, norm
-import numpy as np
+from . jit_newton import jit_newton as __jit_newton
+from . jit_newton import jit_yacoby_matrix_numeric as __jit_yacoby_matrix_numeric
+from .. utils.do_jit import do_jit as __do_jit
 
-@njit
-def yacoby_matrix(VF, X, h=1e-3):
-    '''
-    Get vector function VF and return yacoby matrix in point X
-    '''
-    N = len(X)
-    y_m = np.empty((N, N))
-    X_1, X_2 = X.copy(), X.copy()
-
-    for i in range(N):
-        X_1[i] -= h
-        X_2[i] += h
-        y_m[:, i] = (VF(X_2) - VF(X_1)) / 2 / h
-        X_1[i] += h
-        X_2[i] -= h
-    return y_m
-
-@njit
-def newton(VF, X0, eps=1e-3, K_MAX=100, verify_x=njit(lambda _: True)):
+def newton(VF, X0, eps=1e-3, K_MAX=100, yacoby_matrix = False, verify_x=lambda _: True):
     '''Explanation here https://www.wikiwand.com/en/Newton%27s_method'''
-    X = X0
-    Y_1 = inv(yacoby_matrix(VF, X))
-    d = Y_1 @ VF(X)
-    iteration = 0
-    while norm(d) > eps and iteration < K_MAX:
-        if not verify_x(X):
-            raise ArithmeticError("We can't find the point")
-        iteration += 1
-        Y_1 = inv(yacoby_matrix(VF, X))
-        d = Y_1 @ VF(X)
-        X -= d
-    if iteration == K_MAX:
-        raise ArithmeticError("Too much iterations")
-    return X
+    
+    if not yacoby_matrix:
+        jit_fv = __do_jit(VF)
+        def wrap(X):
+            return __jit_yacoby_matrix_numeric(jit_fv, X)
+
+        yacoby_matrix = wrap
+
+    return __jit_newton(__do_jit(VF), X0, eps, K_MAX, __do_jit(yacoby_matrix), __do_jit(verify_x))
