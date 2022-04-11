@@ -6,6 +6,7 @@ from numba import njit
 
 TIME_MAX = 5000
 
+@njit
 def verify_x(X):
     '''Check the time is valid'''
     return X[0] < TIME_MAX and X[0] > 0
