@@ -1,5 +1,6 @@
 import os
 import numpy as np
+from rh_sides import R_SIDES
 
 cwd = os.path.dirname(os.path.abspath(__file__))
 package_path = os.path.normpath(os.path.join(cwd, ".."))
@@ -7,7 +8,6 @@ import sys; sys.path.append(package_path)
 
 # Every import of our library should looks like this
 from unn_ds import integrators
-from rh_sides import R_SIDES
 
 
 t_0, t_end = 0, 5000
