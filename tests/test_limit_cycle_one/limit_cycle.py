@@ -12,6 +12,8 @@ from rh_sides import R_SIDES
 from unn_ds import limit_cycles
 
 def main():
+    np.set_printoptions(precision=12, suppress=True)
+
     N, L, G, K, h_k = 6, 0.3, 0.97, 1.33, 1e-3
 
     T0 = 4.01739166e+00
@@ -34,7 +36,7 @@ def main():
         print("Limit cycle initial condition")
         print(IC)
         print("Limit cycle period")
-        print(T)
+        print(np.array([T]))
 
         M = limit_cycles.get_monogrommy_matrix(R_SIDES.coupled_pendulums_rs,
                                                R_SIDES.coupled_pendulums_linear_rs,
