@@ -1,3 +1,5 @@
+[![Pytest](https://github.com/unn-dynamic-systems/calculation/actions/workflows/python-tests.yml/badge.svg?branch=main)](https://github.com/unn-dynamic-systems/calculation/actions/workflows/python-tests.yml)
+
 # Calculation
 This repository is dedicated to numerical calculation of ODE's
 
