@@ -12,7 +12,7 @@ from rh_sides import R_SIDES
 from unn_ds import limit_cycles
 
 def main():
-    np.set_printoptions(formatter={'all': lambda x: '0' if np.isclose(x, 0) else "{:.6f}".format(x)})
+    np.set_printoptions(formatter={'all': lambda x: '0' if mt.isclose(x, 0, abs_tol=1e-6) else "{:.6f}".format(x)})
 
     N, L, G, K, h_k = 6, 0.3, 0.97, 1.33, 1e-3
 
