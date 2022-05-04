@@ -1,5 +1,6 @@
 
 import numpy as np
+from scipy.optimize import root
 import math as mt
 from ..optimizers import newton as __newton
 from ..integrators import jit_RK4 as __jit_RK4
@@ -18,7 +19,11 @@ def find_limit_cycle(RS, args, IC0, T0, phase_period = 2 * mt.pi, h=1e-3, eps=1e
     IC0[0] = T0
     # too slow :(
     # IC0 = __newton(lambda X: VF(X) ** 2, IC0, 1e-1, verify_x=__verify_x)
-    IC = __newton(__vf_special, IC0, eps, args=(__do_jit(RS), args, phase_period, h), verify_x=__verify_x)
+    # IC = __newton(__vf_special, IC0, eps, args=(__do_jit(RS), args, phase_period, h), verify_x=__verify_x)
+    root_result = root(__vf_special, IC0, args=(__do_jit(RS), args, phase_period, h), method='hybr')
+    if not root_result.success:
+        raise ArithmeticError("can't find the point")
+    IC = root_result.x
     T = IC[0]; IC[0] = 0
     return T, IC
 
