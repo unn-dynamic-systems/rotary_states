@@ -11,7 +11,7 @@ from .jit_main_method import vf_special as __vf_special
 from .jit_main_method import super_rs as __super_rs
 from .jit_main_method import verify_x as __verify_x 
 
-def find_limit_cycle(RS, args, IC0, T0, phase_period = 2 * mt.pi, h=1e-3, eps=1e-3):
+def find_limit_cycle(RS, args, IC0, T0, phase_period = 2 * mt.pi, h=1e-3, eps=1e-3, method='hybr'):
     '''TODO: Docs'''
 
     IC0 = IC0.copy()
@@ -20,7 +20,7 @@ def find_limit_cycle(RS, args, IC0, T0, phase_period = 2 * mt.pi, h=1e-3, eps=1e
     # too slow :(
     # IC0 = __newton(lambda X: VF(X) ** 2, IC0, 1e-1, verify_x=__verify_x)
     # IC = __newton(__vf_special, IC0, eps, args=(__do_jit(RS), args, phase_period, h), verify_x=__verify_x)
-    root_result = root(__vf_special, IC0, args=(__do_jit(RS), args, phase_period, h), method='broyden1', tol=eps)
+    root_result = root(__vf_special, IC0, args=(__do_jit(RS), args, phase_period, h), method=method, tol=eps)
     # print(root_result)
     if not root_result.success:
         raise ArithmeticError("can't find the point")
