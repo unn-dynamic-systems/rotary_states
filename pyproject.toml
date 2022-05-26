@@ -1,8 +1,8 @@
 [tool.poetry]
 name = "unn_ds"
 version = "0.1.1"
-description = ""
-authors = ["DimaAmega <dima.amega1@gmail.com>"]
+description = "The minimalistic framework for finding rotational states"
+authors = ["Dmitry Khorkin <dmitryhorkin@gmail.com>"]
 
 [tool.poetry.dependencies]
 python = ">=3.7,<3.11"
