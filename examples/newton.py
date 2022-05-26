@@ -2,7 +2,7 @@ import numpy as np
 from numba import njit
 
 # Every import of our library should looks like this
-from unn_ds import optimizers
+from rotary_states import optimizers
 
 def main():
 

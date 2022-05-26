@@ -1,6 +1,6 @@
 import numpy as np
 
-from unn_ds import optimizers
+from rotary_states import optimizers
 
 def VF1(X):
     return np.array([2 * X[0] ** 2 + X[1] ** 2 - 1, X[0] ** 3 + 6 * X[0] ** 2 * X[1] - 1])

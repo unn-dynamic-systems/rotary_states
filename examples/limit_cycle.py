@@ -9,7 +9,7 @@ import sys; sys.path.append(package_path)
 from rh_sides import R_SIDES
 
 # Every import of our library should looks like this
-from unn_ds import limit_cycles
+from rotary_states import limit_cycles
 
 def main():
     N, L, G, K, h_k = 6, 0.3, 0.97, 1.33, 1e-3

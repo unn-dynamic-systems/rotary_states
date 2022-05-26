@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "unn_ds"
+name = "rotary_states"
 version = "0.1.1"
 description = "The minimalistic framework for finding rotational states"
 authors = ["Dmitry Khorkin <dmitryhorkin@gmail.com>"]

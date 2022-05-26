@@ -7,7 +7,7 @@ package_path = os.path.normpath(os.path.join(cwd, ".."))
 import sys; sys.path.append(package_path)
 
 # Every import of our library should looks like this
-from unn_ds import integrators
+from rotary_states import integrators
 
 
 t_0, t_end = 0, 5000

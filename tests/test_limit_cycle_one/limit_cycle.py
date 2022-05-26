@@ -9,7 +9,7 @@ import sys; sys.path.append(package_path)
 from rh_sides import R_SIDES
 
 # Every import of our library should looks like this
-from unn_ds import limit_cycles
+from rotary_states import limit_cycles
 
 def main():
     np.set_printoptions(formatter={'all': lambda x: '0' if mt.isclose(x, 0, abs_tol=1e-6) else "{:.6f}".format(x)})
