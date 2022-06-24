@@ -55,7 +55,8 @@ assert IC_0[0] == 0
 T, IC = limit_cycles.find_limit_cycle(F, args, IC_0, T_0, phase_period=4*mt.pi)
 ```
 
-For example, we will consider a chain of identic coupled oscillators with inertia $m$, friction $\lambda$ and constant rotational
+For example, we will consider a chain of identic coupled oscillators with inertia $m$, friction
+$\lambda$ and constant rotational
 moment $\gamma$:
 
 $$
