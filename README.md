@@ -38,7 +38,8 @@ $$
 > **Without losing generality for approximate initial conditions, we can set the $\varphi_{1_0} = 0$ and this is required for $IC_0$**
 
 
-Code snippet for finding $4\pi$ rotary states in system $\dot{X} = F(X)$:
+Code snippet for finding $4\pi$ rotary states
+in system $\dot{X} = F(X)$:
 ```python
 from rotary_states import limit_cycles
 # define 'IC_0', 'T_0', 'F', 'args'
@@ -80,7 +81,8 @@ $$
 
 where $A(t) = A(t + T)$ - periodic matrix.
 
-That system describes the perturbations. Stability of zero solution $\delta \varphi_i$ determine stability of rotational regime.
+That system describes the perturbations. Stability of zero solution $\delta \varphi_i$ determine stability of rotational regime
+$\psi_i$.
 
 The eigenvalues of Monodromy matrix are determine zero solution stability of $\delta\varphi$.
 
