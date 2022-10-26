@@ -21,6 +21,10 @@ X = (\varphi_1, \dot{\varphi}_1, \varphi_2, \dot{\varphi}_2, ... , \varphi_N, \d
 $$
 
 This framework allows you to find rotational regimes and determine their stability.
+
+## My master's thesis
+This [presentation](https://slides.com/dmitryhorkin/master-3/fullscreen) is about my master's thesis based on this library
+
 ## Rotational regimes finding
 
 The rotation modes are described by the **rotation period**, the **phase period** and the **initial conditions**.
