@@ -20,7 +20,7 @@ $$
 This framework allows you to find rotational regimes and determine their stability.
 
 ## My master's thesis
-This [presentation](https://slides.com/dmitryhorkin/master-3/fullscreen) is about my master's thesis based on this library
+This [presentation](https://slides-com.translate.goog/dmitryhorkin/master-3/fullscreen?_x_tr_sl=auto&_x_tr_tl=en&_x_tr_hl=ru&_x_tr_pto=wapp&_x_tr_hist=true) is about my master's thesis based on this library
 
 ## Rotational regimes finding
 
