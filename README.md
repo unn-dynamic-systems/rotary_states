@@ -6,16 +6,17 @@
 
 Consider a system of autonomous ODE that describes $N$ coupled phase oscillators:
 
-$$
+```math
 \dot{X} = F(X), \ X \in R^n
-$$
+```
 
 where $X$ is state vector of coupled phase oscillators. 
 Without losing generality, we can write $X$ as follows:
 
-$$
+```math
 X = (\varphi_1, \dot{\varphi}_1, \varphi_2, \dot{\varphi}_2, ... , \varphi_N, \dot{\varphi}_N).
-$$
+```
+
 
 This framework allows you to find rotational regimes and determine their stability.
 
@@ -32,12 +33,7 @@ The rotation modes are described by the **rotation period**, the **phase period*
 
 If you want to find some rotational mode, you need to have a few things:
 * Approximate rotation period: $T_0 \in R$
-* Approximate initial conditions:
-
-$$
-IC_0 = (\varphi_{1_0}, \dot{\varphi}_{1_0}, \varphi_{2_0}, \dot{\varphi}_{2_0}, ... , \varphi_{N_0}, \dot{\varphi}_{N_0})
-$$
-
+* Approximate initial conditions: $`IC_0=(\varphi_{1_0}, \dot{\varphi}_{1_0}, \varphi_{2_0}, \dot{\varphi}_{2_0}, ... , \varphi_{N_0}, \dot{\varphi}_{N_0})`$
 * Phase period: $phase\\_period = 2\pi \cdot k$
 
 > **Without losing generality for approximate initial conditions, we can set the $\varphi_{1_0} = 0$ and this is required for $IC_0$**
@@ -64,9 +60,10 @@ For example, we will consider a chain of identic coupled oscillators with inerti
 $\lambda$ and constant rotational
 moment $\gamma$:
 
-$$
+
+```math
 \ddot{\varphi}_i + \lambda \dot{\varphi}_i + \sin{\varphi}_i = \gamma + k \left[ \sin(\varphi_{i+1} - \varphi_i) + \sin(\varphi_{i-1} - \varphi_i) \right].
-$$
+```
 
 There are a lot of some rotational regimes you can find in that system. Also you can see the our previous [publication](http://doi.org/10.1063/5.0044521) about this study, but in this [example](./examples/limit_cycle.py) you can see how we can find some $4\pi$-periodic rotational regime with specific parameters in that system.
 
@@ -75,15 +72,15 @@ To determine the stability of the rotational mode we can use the [Floquet theory
 
 First of all we have to linearize the system around rotational regime we interested in by replacement:
 
-$$
+```math
 \varphi_i = \delta\varphi_i + \psi_i,
-$$
+```
 
 we get the following system:
 
-$$
+```math
 \dot{\delta\varphi} = A(t)\delta\varphi,
-$$
+```
 
 where $A(t) = A(t + T)$ - periodic matrix.
 
