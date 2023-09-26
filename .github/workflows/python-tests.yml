@@ -16,7 +16,7 @@ jobs:
       with:
         python-version: 3.8
     - name: Install Poetry
-      uses: snok/install-poetry@v1
+      run: pip3 install poetry
     - name: Check poetry
       run: poetry --version
     - name: Install deps
