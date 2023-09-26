@@ -1,5 +1,8 @@
 [![Pytest](https://github.com/unn-dynamic-systems/calculation/actions/workflows/python-tests.yml/badge.svg?branch=main)](https://github.com/unn-dynamic-systems/calculation/actions/workflows/python-tests.yml)
+
+<!---
 [![codecov](https://codecov.io/gh/unn-dynamic-systems/rotary_states/branch/main/graph/badge.svg?token=L3CWRL4T3E)](https://codecov.io/gh/unn-dynamic-systems/rotary_states)
+-->
 
 # Rotary states
 *The minimalistic framework for finding rotational regimes and determining their stability*
